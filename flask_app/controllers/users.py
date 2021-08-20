@@ -2,6 +2,7 @@ from flask import render_template,request,redirect,session,flash
 from flask_app import app
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
+
 from flask_app.models.user import User
 
 @app.route('/')
@@ -31,6 +32,7 @@ def register():
     user_id = User.add_user(data)
     # store user id into session
     session['user_id'] = user_id
+    session['name'] = request.form['first_name']
     return redirect("/success")
 
 @app.route('/login', methods=['POST'])
@@ -48,16 +50,8 @@ def login():
         return redirect('/')
     # if the passwords matched, we set the user_id into session
     session['user_id'] = user_in_db.id
+    session['name'] = user_in_db.first_name
     # never render on a post!!!
     return redirect("/success")
 
-@app.route('/success')
-def success():
-    if not session:
-        flash("Please login")
-        return redirect('/')
-    data={
-        'id': session['user_id']
-    }
-    user = User.get_user(data)
-    return render_template('dashboard.html',user=user)
+

@@ -7,7 +7,39 @@
     <title>Welcome</title>
 </head>
 <body>
-    <h1>Welcome {{user[0].first_name}}</h1>
-    <a href="/logout">logout</a>
+    <div>
+        <h1>Welcome {{session['name']}}</h1>
+        <a href="/add_recipe">Create</a>
+        <a href="/logout">logout</a>
+    </div>
+    <div>
+        <h3>These are the recipes</h3>
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Under 30 Minutes?</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                <tr>
+                    <td>{{recipe.name}}</td>
+                    {% if recipe.under_30_minutes == 1%}
+                        <td>Yes</td>
+                    {% else %}
+                        <td>No</td>
+                    {%endif%}
+                    {% if recipe.user_id == session['user_id']%}
+                        <td><a href="/recipes/{{recipe.id}}">Veiw Instrcuctions</a> <a href="/recipes/edit/{{recipe.id}}">Edit</a> <a href="/delete/{{recipe.id}}">Delete</a></td>
+                    {% else %}
+                        <td><a href="/recipes/{{recipe.id}}">Veiw Instrcuctions</a></td>
+                    {%endif%}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
+
+<!-- last finished the dashboard, next edit and delete  -->

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Welcome {{session['name']}}</h1>
+        <a href="/success">Dashboard</a>
+        <a href="/logout">logout</a>
+    </div>
+    <h2>{{recipe[0].name}}</h2>
+    <p>Description: {{recipe[0].description}}</p>
+    {% if recipe[0].under_30_minutes == 1%}
+        <p>Under 30 Minutes: Yes</p>
+    {% else %}
+        <p>Under 30 Minutes: No</p>
+    {%endif%}
+    <p>Instructions: {{recipe[0].instructions}}</p>
+    <p>Date Made: {{recipe[0].date_made}}</p>
+</body>
+</html>
